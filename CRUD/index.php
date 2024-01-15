@@ -62,7 +62,7 @@
                 echo '<p>Année : ' . $row['disc_year'] . '</p>';
                 echo '<p>Genre : ' . $row['disc_genre'] . '</p>';
                 echo '<p>Label : ' . $row['disc_label'] . '</p>';
-                echo '<a class="btn btn-primary" href="detail.php?disc_id=' . $row['disc_id'] . '">Détail</a>'; // Bouton Détail
+                echo '<a class="btn btn-primary" href="details.php?disc_id=' . $row['disc_id'] . '">Détail</a>'; // Bouton Détail
                 echo '</div>';
                 echo '</div>';
                 $count++;
