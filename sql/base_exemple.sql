@@ -1,3 +1,4 @@
+-- Active: 1705999240837@@127.0.0.1@3306@exemple
 CREATE TABLE dept (
 	nodept 		varchar(50) NOT NULL PRIMARY KEY,
 	nom 		varchar(50) NOT NULL,
