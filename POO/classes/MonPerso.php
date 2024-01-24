@@ -2,8 +2,6 @@
 
 require_once 'Personnage.class.php'; // Inclure le fichier contenant la classe Personnage
 
-$p = new Personnage();
-$p->setNom("Lebowski");
-$p->setPrenom("Jeff");
+$p = new Personnage("Lebowski", "Jeff", "H");
 
 echo $p;

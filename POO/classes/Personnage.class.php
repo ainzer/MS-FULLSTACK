@@ -7,11 +7,11 @@ class Personnage
     private $age;
     private $sexe;
 
-    public function __construct($nom = "", $prenom = "", $age = 0, $sexe = "")
+    public function __construct($nom, $prenom, $sexe)
     {
         $this->nom = $nom;
         $this->prenom = $prenom;
-        $this->age = $age;
+        $this->age = 0;
         $this->sexe = $sexe;
     }
 
