@@ -7,5 +7,3 @@ $p->setNom("Lebowski");
 $p->setPrenom("Jeff");
 
 echo $p;
-
-?>
