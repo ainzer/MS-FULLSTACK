@@ -118,9 +118,10 @@ class Employe
     // Méthode pour donner l'ordre de transfer à la banque
     public function donnerOrdreTransfert()
     {
+        
         $prime = $this->calculerPrime();
         $dateDuJour = new DateTime();
-        $dateVersement = new DateTime("30-11");
+        $dateVersement = new DateTime("2023-11-30");
 
         if ($dateDuJour >= $dateVersement)
         {
