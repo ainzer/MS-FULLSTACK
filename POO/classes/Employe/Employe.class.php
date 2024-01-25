@@ -60,6 +60,21 @@ class Employe {
         echo "Salaire : " . $this->getSalaire() . " K euros brut annuel<br>";
         echo "Service : " . $this->getService() . "<br>";
     }
+
+    // Méthode pour calculer le nombre d'années dans l'entreprise
+    public function anneesDansEntreprise() {
+        // Convertir la date d'embauche en objet DateTime
+        $dateEmbauche = new DateTime($this->dateEmbauche);
+
+        // Obtenir la date actuelle
+        $dateActuelle = new DateTime();
+
+        // Calculer la différence en années
+        $difference = $dateEmbauche->diff($dateActuelle);
+
+        // Retourner le nombre d'années
+        return $difference->y;
+    }
 }
 
 // Exemple d'utilisation de la classe Employe
@@ -67,3 +82,6 @@ $employe1 = new Employe("Doe", "John", "2022-01-01", "Développeur", 50, "Inform
 
 // Afficher les détails après modification
 $employe1->afficherDetails();
+
+// Appeler la méthode pour afficher le nombre d'années dans l'entreprise
+echo "Années dans l'entreprise : " . $employe1->anneesDansEntreprise() . " ans";
