@@ -5,13 +5,15 @@ class Magasin {
     private $adresse;
     private $codePostal;
     private $ville;
+    private $modeRestauration;
 
-    public function __construct($nom, $adresse, $codePostal, $ville)
+    public function __construct($nom, $adresse, $codePostal, $ville, $modeRestauration)
     {
         $this->nom = $nom;
         $this->adresse = $adresse;
         $this->codePostal = $codePostal;
         $this->ville = $ville;
+        $this->modeRestauration = $modeRestauration;
     }
 
     // Getters
@@ -31,6 +33,10 @@ class Magasin {
         return $this->ville;
     }
 
+    public function getModeRestauration() {
+        return $this->modeRestauration;
+    }
+
     // Setters
     public function setNom($nouveauNom) {
         $this->nom = $nouveauNom;
@@ -48,6 +54,10 @@ class Magasin {
         $this->ville = $nouvelleVille;
     }
 
+    public function setModeRestauration($nouveauModeRestauration) {
+        $this->modeRestauration = $nouveauModeRestauration;
+    }
+
 }
 
 
@@ -60,9 +70,11 @@ class Employe {
     private $fonction;
     private $salaire;
     private $service;
+    private $magasin;
+    private $enfants = [];
 
     // Constructeur
-    public function __construct($nom, $prenom, $dateEmbauche, $fonction, $salaire, $service)
+    public function __construct($nom, $prenom, $dateEmbauche, $fonction, $salaire, $service, $magasin)
     {
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -70,6 +82,7 @@ class Employe {
         $this->fonction = $fonction;
         $this->salaire = $salaire;
         $this->service = $service;
+        $this->magasin = $magasin;
     }
 
     // Getters
@@ -97,6 +110,10 @@ class Employe {
         return $this->service;
     }
 
+    public function getMagasin() {
+        return $this->magasin;
+    }
+
     // Setters
     public function setNom($nouveauNom) {
         $this->nom = $nouveauNom;
@@ -120,6 +137,10 @@ class Employe {
 
     public function setService($nouveauService) {
         $this->service = $nouveauService;
+    }
+
+    public function setMagasin($nouveauMagasin) {
+        $this->magasin = $nouveauMagasin;
     }
 
     // Méthode pour afficher les détails de l'emplyé
@@ -176,31 +197,79 @@ class Employe {
             return "La prime n'est pas encore due.";
         }
     }
+
+    // Méthode pour afficher le mode de restauration du magasin de l'employé
+    public function afficherModeRestauration() {
+        echo $this->nom . " " . $this->prenom . " travaille dans le magasin " . $this->magasin->getNom() . " à " . $this->magasin->getVille() . "<br>";
+        echo "Mode de restauration : " . $this->magasin->getModeRestauration() . "<br>";
+    }
+
+    // Méthode pour vérifier l'éligibilité aux chèques-vacances
+    public function estEligibleChequesVacances() {
+        // Vérifier si l'employé a une ancienneté d'au moins un an
+        return $this->anneesDansEntreprise() >= 1;
+    }
+
+    // Méthode pour ajouter un enfant à l'employé
+    public function ajouterEnfant($nom, $age) {
+        $this->enfants[] = ['nom' => $nom, 'age' => $age];
+    }
+
+    // Méthode pour obtenir le nombre d'enfants
+    public function nombreEnfants() {
+        return count($this->enfants);
+    }
+
+    // Méthode pour obtenir le tableau d'enfants
+    public function getEnfants() {
+        return $this->enfants;
+    }
+
+    // Méthode pour vérifier l'éligibilité et obtenir le nombre de chèques Noël
+    public function obtenirChequesNoel() {
+        $nombreCheques = [
+            '20€' => 0,
+            '30€' => 0,
+            '50€' => 0,
+        ];
+
+        // Vérifier si l'employé a des enfants
+        $nombreEnfants = $this->nombreEnfants();
+        if ($nombreEnfants > 0) {
+            // Parcourir chaque enfant pour calculer le montant des chèques Noël
+            foreach ($this->enfants as $enfant) {
+                $ageEnfant = $enfant->getAge();
+
+                // // Attribution du montant en fonction de l'âge
+                if ($ageEnfant >= 0 && $ageEnfant <= 10) {
+                    $nombreCheques['20€']++;
+                } elseif ($ageEnfant >= 11 && $ageEnfant <= 15) {
+                    $nombreCheques['30€']++;
+                } elseif ($ageEnfant >= 16 && $ageEnfant <= 18) {
+                    $nombreCheques['50€']++;
+                }
+            }
+        }
+        return $nombreCheques;
+    }
 }
 
-// Création d'objets Employe
-$employe1 = new Employe("Doe", "John", "2010-01-01", "Développeur", 50, "Informatique");
-$employe2 = new Employe("Smith", "Alice", "2015-03-15", "Comptable", 60, "Comptabilité");
-$employe3 = new Employe("Johnson", "Bob", "2018-07-20", "Commercial", 70, "Ventes");
-$employe4 = new Employe("Williams", "Emma", "2012-11-10", "Chef de projet", 65, "Informatique");
-$employe5 = new Employe("Brown", "Charlie", "2016-06-05", "Assistant RH", 55, "Ressources Humaines");
+// Exemple d'utilisation des classes Employe et simulation des enfants
+$magasin1 = new Magasin("Nom Magasin", "Adresse Magasin", "Code Postal", "Ville", "Mode de Restauration");
+$employe1 = new Employe("Doe", "John", "2010-01-01", "Développeur", 50, "Informatique", $magasin1);
 
-// Changer la date actuelle pour la simulation
-date_default_timezone_set('Europe/Paris'); // Définir le fuseau horaire si nécessaire
-$newDate = strtotime('2024-11-30'); // Changer la date selon vos besoins
-date_modify(new DateTime(), date("Y-m-d H:i:s", $newDate));
+// Simulation des enfants de l'employé
+$employe1->ajouterEnfant("Alice", 8);
+$employe1->ajouterEnfant("Bob", 14);
 
+// Afficher si l'employé a le droit d'avoir des chèques Noël (Oui/Non)
+$eligibiliteChequesNoel = $employe1->obtenirChequesNoel();
 
-// Affichage du montant des primes pour chaque employé
-echo "Prime pour " . $employe1->getNom() . " " . $employe1->getPrenom() . ": " . $employe1->calculerPrime() . " euros<br>";
-echo "Prime pour " . $employe2->getNom() . " " . $employe2->getPrenom() . ": " . $employe2->calculerPrime() . " euros<br>";
-echo "Prime pour " . $employe3->getNom() . " " . $employe3->getPrenom() . ": " . $employe3->calculerPrime() . " euros<br>";
-echo "Prime pour " . $employe4->getNom() . " " . $employe4->getPrenom() . ": " . $employe4->calculerPrime() . " euros<br>";
-echo "Prime pour " . $employe5->getNom() . " " . $employe5->getPrenom() . ": " . $employe5->calculerPrime() . " euros<br>";
+echo $employe1->getNom() . " " . $employe1->getPrenom() . " a le droit d'avoir des chèques Noël : " . ($eligibiliteChequesNoel['20€'] > 0 || $eligibiliteChequesNoel['30€'] > 0 || $eligibiliteChequesNoel['50€'] > 0 ? "Oui" : "Non") . "<br>";
 
-// Affichage du montant des primes pour chaque employé
-echo $employe1->ordreTransfertPrime() . "<br>";
-echo $employe2->ordreTransfertPrime() . "<br>";
-echo $employe3->ordreTransfertPrime() . "<br>";
-echo $employe4->ordreTransfertPrime() . "<br>";
-echo $employe5->ordreTransfertPrime() . "<br>";
+// Afficher le nombre de chèques de chaque montant
+foreach ($eligibiliteChequesNoel as $montant => $nombre) {
+    if ($nombre > 0) {
+        echo "Nombre de chèques de " . $montant . " : " . $nombre . "<br>";
+    }
+}
