@@ -1,5 +1,42 @@
 <?php
 
+class Magasin {
+    private $nom;
+    private $adresse;
+    private $codePostal;
+    private $ville;
+
+    public function __construct($nom, $adresse, $codePostal, $ville)
+    {
+        $this->nom = $nom;
+        $this->adresse = $adresse;
+        $this->codePostal = $codePostal;
+        $this->ville = $ville;
+    }
+
+    // Ajouter des getters si nécessaire
+    public function getNom() {
+        return $this->nom;
+    }
+
+    public function getAdresse() {
+        return $this->adresse;
+    }
+
+    public function getCodePostal() {
+        return $this->codePostal;
+    }
+
+    public function getVille() {
+        return $this->ville;
+    }
+}
+
+
+
+
+
+
 class Employe {
 
     // Propriétés
@@ -47,8 +84,28 @@ class Employe {
     }
 
     // Setters
+    public function setNom($nouveauNom) {
+        $this->nom = $nouveauNom;
+    }
+
+    public function setPrenom($nouveauPrenom) {
+        $this->prenom = $nouveauPrenom;
+    }
+
+    public function setDateEmbauche($nouvelleDateEmbauche) {
+        $this->dateEmbauche = $nouvelleDateEmbauche;
+    }
+
+    public function setFonction($nouvelleFonction) {
+        $this->fonction = $nouvelleFonction;
+    }
+
     public function setSalaire($nouveauSalaire) {
         $this->salaire = $nouveauSalaire;
+    }
+
+    public function setService($nouveauService) {
+        $this->service = $nouveauService;
     }
 
     // Méthode pour afficher les détails de l'emplyé
