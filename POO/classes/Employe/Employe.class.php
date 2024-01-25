@@ -90,8 +90,8 @@ class Employe {
 
     // Méthode pour générer l'ordre de transfer à la banque
     public function ordreTransfertPrime() {
-        // Obtenir la date actuelle
-        $dateActuelle = new DateTime();
+        // Utiliser une date fixe (30/11) pour la simulation
+        $dateActuelle = new DateTime(2024-11-30);
 
         // Vérifier si c'est le 30/11
         if ($dateActuelle->format('d-m') === '30-11') {
@@ -114,9 +114,22 @@ $employe3 = new Employe("Johnson", "Bob", "2018-07-20", "Commercial", 70, "Vente
 $employe4 = new Employe("Williams", "Emma", "2012-11-10", "Chef de projet", 65, "Informatique");
 $employe5 = new Employe("Brown", "Charlie", "2016-06-05", "Assistant RH", 55, "Ressources Humaines");
 
+// Changer la date actuelle pour la simulation
+date_default_timezone_set('Europe/Paris'); // Définir le fuseau horaire si nécessaire
+$newDate = strtotime('2024-11-30'); // Changer la date selon vos besoins
+date_modify(new DateTime(), date("Y-m-d H:i:s", $newDate));
+
+
 // Affichage du montant des primes pour chaque employé
 echo "Prime pour " . $employe1->getNom() . " " . $employe1->getPrenom() . ": " . $employe1->calculerPrime() . " euros<br>";
 echo "Prime pour " . $employe2->getNom() . " " . $employe2->getPrenom() . ": " . $employe2->calculerPrime() . " euros<br>";
 echo "Prime pour " . $employe3->getNom() . " " . $employe3->getPrenom() . ": " . $employe3->calculerPrime() . " euros<br>";
 echo "Prime pour " . $employe4->getNom() . " " . $employe4->getPrenom() . ": " . $employe4->calculerPrime() . " euros<br>";
 echo "Prime pour " . $employe5->getNom() . " " . $employe5->getPrenom() . ": " . $employe5->calculerPrime() . " euros<br>";
+
+// Affichage du montant des primes pour chaque employé
+echo $employe1->ordreTransfertPrime() . "<br>";
+echo $employe2->ordreTransfertPrime() . "<br>";
+echo $employe3->ordreTransfertPrime() . "<br>";
+echo $employe4->ordreTransfertPrime() . "<br>";
+echo $employe5->ordreTransfertPrime() . "<br>";
