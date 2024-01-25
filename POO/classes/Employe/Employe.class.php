@@ -14,7 +14,7 @@ class Magasin {
         $this->ville = $ville;
     }
 
-    // Ajouter des getters si nécessaire
+    // Getters
     public function getNom() {
         return $this->nom;
     }
@@ -30,11 +30,25 @@ class Magasin {
     public function getVille() {
         return $this->ville;
     }
+
+    // Setters
+    public function setNom($nouveauNom) {
+        $this->nom = $nouveauNom;
+    }
+
+    public function setAdresse($nouvelleAdresse) {
+        $this->adresse = $nouvelleAdresse;
+    }
+
+    public function setCodePostal($nouveauCodePostal) {
+        $this->codePostal = $nouveauCodePostal;
+    }
+
+    public function setVille($nouvelleVille) {
+        $this->ville = $nouvelleVille;
+    }
+
 }
-
-
-
-
 
 
 class Employe {
