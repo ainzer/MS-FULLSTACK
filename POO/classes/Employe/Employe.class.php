@@ -75,13 +75,48 @@ class Employe {
         // Retourner le nombre d'années
         return $difference->y;
     }
+
+    // Méthode pour calculer la prime
+    public function calculerPrime() {
+        // Calculer la prime basée sur le salaire annuel
+        $primeSalaire = 0.05 * $this->salaire;
+
+        // Calculer la prime basée sur l'ancienneté
+        $primeAnciennete = 0.02 * $this->salaire * $this->anneesDansEntreprise();
+
+        // Retourner le montant total de la prime
+        return $primeSalaire + $primeAnciennete;
+    }
+
+    // Méthode pour générer l'ordre de transfer à la banque
+    public function ordreTransfertPrime() {
+        // Obtenir la date actuelle
+        $dateActuelle = new DateTime();
+
+        // Vérifier si c'est le 30/11
+        if ($dateActuelle->format('d-m') === '30-11') {
+            // Calculer la prime
+            $montantPrime = $this->calculerPrime();
+
+            // Générer et retourner le message d'odre de transfert
+            return "Odre de transfert de la prime de " . $montantPrime . " euros envoyé à la banque pour l'employé " . $this->nom . " " . $this->prenom;
+        } else {
+            // Si ce n'est pas le 30/11, retourner un message indiquant que la prime n'est pas encore due
+            return "La prime n'est pas encore due.";
+        }
+    }
 }
 
-// Exemple d'utilisation de la classe Employe
-$employe1 = new Employe("Doe", "John", "2022-01-01", "Développeur", 50, "Informatique");
+// Création d'objets Employe
+$employe1 = new Employe("Doe", "John", "2010-01-01", "Développeur", 50, "Informatique");
+$employe2 = new Employe("Smith", "Alice", "2015-03-15", "Comptable", 60, "Comptabilité");
+$employe3 = new Employe("Johnson", "Bob", "2018-07-20", "Commercial", 70, "Ventes");
+$employe4 = new Employe("Williams", "Emma", "2012-11-10", "Chef de projet", 65, "Informatique");
+$employe5 = new Employe("Brown", "Charlie", "2016-06-05", "Assistant RH", 55, "Ressources Humaines");
 
-// Afficher les détails après modification
-$employe1->afficherDetails();
-
-// Appeler la méthode pour afficher le nombre d'années dans l'entreprise
-echo "Années dans l'entreprise : " . $employe1->anneesDansEntreprise() . " ans";
+// Affichage du montant des primes pour chaque employé
+echo "Prime pour " . $employe1->getNom() . " " . $employe1->getPrenom() . ": " . $employe1->calculerPrime() . " euros<br>";
+echo "Prime pour " . $employe2->getNom() . " " . $employe2->getPrenom() . ": " . $employe2->calculerPrime() . " euros<br>";
+echo "Prime pour " . $employe3->getNom() . " " . $employe3->getPrenom() . ": " . $employe3->calculerPrime() . " euros<br>";
+echo "Prime pour " . $employe4->getNom() . " " . $employe4->getPrenom() . ": " . $employe4->calculerPrime() . " euros<br>";
+echo "Prime pour " . $employe5->getNom() . " " . $employe5->getPrenom() . ": " . $employe5->calculerPrime() . " euros<br>";
